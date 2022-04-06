@@ -7,6 +7,13 @@ Cameron Yap, Emily Christiansen, Madeleine Thompson, Stefan Lin
 cd <this_directory>
 python init.py
 ```
+### Requirements:
+```
+pip install dash
+pip install dash_bootstrap_components
+pip install plotly
+pip install pandas
+```
 
 ### Repo Structure
 ```
@@ -26,3 +33,13 @@ python init.py
 - index.py
 - README.md
 ```
+
+### Resources:
+- [Plotly Dash](https://dash.plotly.com/)
+    - [Multi-page Support](https://dash.plotly.com/urls)
+    - [Interactive Graphing](https://dash.plotly.com/interactive-graphing)
+    - [dcc.Graph](https://dash.plotly.com/dash-core-components/graph)
+- [Plotly](https://plotly.com/python/)
+- [Dash Bootstrap Cheatsheet](https://dashcheatsheet.pythonanywhere.com/)
+- [Dash for Beginners: Create Interactive Python Dashboards (Towards Data Science)](https://towardsdatascience.com/dash-for-beginners-create-interactive-python-dashboards-338bfcb6ffa4)
+- [Beginner’s Guide to Building a Multi-Page App using Dash, Plotly and Bootstrap (Towards Data Science)](https://towardsdatascience.com/beginners-guide-to-building-a-multi-page-dashboard-using-dash-5d06dbfc7599)

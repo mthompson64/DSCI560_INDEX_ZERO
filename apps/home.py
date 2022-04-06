@@ -1,7 +1,7 @@
-from dash import dcc, html
+from dash import dcc, html, dash_table
 from dash.dependencies import Input, Output
 import dash_bootstrap_components as dbc
-import dash_table
+# import dash_table
 
 import plotly.graph_objects as go
 import pandas as pd
@@ -10,6 +10,8 @@ from app import app
 # Read in data somewhere else (getting some warnings on this)
 data_df = pd.read_csv('data/agg_stats.csv')
 data_df = data_df.sort_values(by=['median_rent'])
+
+# Read in models here (?)
 
 
 layout = html.Div([
@@ -34,7 +36,7 @@ layout = html.Div([
                 ],
             value = 'well_count'),
         
-        # Graph (change)
+        # Graph (change, add more graphs here)
         dcc.Graph(id = 'scatter_plot')
         ])
     ])

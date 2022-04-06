@@ -6,6 +6,13 @@ import plotly.graph_objects as go
 import pandas as pd
 from app import app
 
+# Read in data somewhere else (getting some warnings on this)
+data_df = pd.read_csv('data/agg_stats.csv')
+data_df = data_df.sort_values(by=['median_rent'])
+
+# Read in models here (?)
+
+
 layout = html.Div([
     # Header container
     dbc.Container([
@@ -16,4 +23,8 @@ layout = html.Div([
             dbc.Col(html.Div('Cameron Yap, Emily Christiansen, Madeleine Thompson, and Stefan Lin'))
         ]),
     ]),
+
+    dbc.Container([
+        ### Add stuff to the page here
+    ])
 ])
