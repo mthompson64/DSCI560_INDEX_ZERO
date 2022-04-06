@@ -1,10 +1,8 @@
 from dash import dcc, html
-# import dash_html_components as html
 from dash.dependencies import Input, Output, State
 import dash_bootstrap_components as dbc
 
 from app import app
-# import all pages in the app
 from apps import ui, home
 
 dropdown = dbc.DropdownMenu(
@@ -44,7 +42,6 @@ navbar = dbc.Navbar(
     ),
     color="dark",
     dark=True,
-    # className="mb-4",
 )
 
 def toggle_navbar_collapse(n, is_open):
@@ -66,14 +63,12 @@ app.layout = html.Div([
     html.Div(id='page-content')
 ])
 
-
+# Index Callbacks
 @app.callback(Output('page-content', 'children'),
               [Input('url', 'pathname')])
 def display_page(pathname):
     if pathname == '/ui':
         return ui.layout
-    # elif pathname == '/singapore':
-    #     return singapore.layout
     else:
         return home.layout
 
