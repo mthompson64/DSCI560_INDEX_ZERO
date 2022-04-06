@@ -7,6 +7,12 @@ Cameron Yap, Emily Christiansen, Madeleine Thompson, Stefan Lin
 cd <this_directory>
 python init.py
 ```
+You should then see something similar to the following on the command line:
+```
+Dash is running on http://127.0.0.1:8050/
+```
+Copy and paste the url to your browser to run the app locally and debug.
+
 ### Requirements:
 ```
 pip install dash
