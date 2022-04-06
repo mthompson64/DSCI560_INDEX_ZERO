@@ -49,3 +49,5 @@ pip install pandas
 - [Dash Bootstrap Cheatsheet](https://dashcheatsheet.pythonanywhere.com/)
 - [Dash for Beginners: Create Interactive Python Dashboards (Towards Data Science)](https://towardsdatascience.com/dash-for-beginners-create-interactive-python-dashboards-338bfcb6ffa4)
 - [Beginner’s Guide to Building a Multi-Page App using Dash, Plotly and Bootstrap (Towards Data Science)](https://towardsdatascience.com/beginners-guide-to-building-a-multi-page-dashboard-using-dash-5d06dbfc7599)
+- Example Dash App Github Repository
+    - [github.com/meredithwan/covid-dash-app](https://github.com/meredithwan/covid-dash-app)
