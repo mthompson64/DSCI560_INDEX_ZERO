@@ -59,3 +59,8 @@ def graph_update(dropdown_value):
                       yaxis_title = str(dropdown_value)
                       )
     return fig  
+
+
+
+if __name__ == '__main__': 
+    app.run_server(debug=True) #hot-reload
