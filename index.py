@@ -1,5 +1,5 @@
-import dash_core_components as dcc
-import dash_html_components as html
+from dash import dcc, html
+# import dash_html_components as html
 from dash.dependencies import Input, Output, State
 import dash_bootstrap_components as dbc
 
@@ -9,7 +9,7 @@ from apps import ui, home
 
 dropdown = dbc.DropdownMenu(
     children=[
-        dbc.DropdownMenuItem("Home", href="/haha"),
+        dbc.DropdownMenuItem("Home", href="/home"),
         dbc.DropdownMenuItem("User Interface", href="/ui"),
     ],
     nav = True,
@@ -25,10 +25,9 @@ navbar = dbc.Navbar(
                 dbc.Row(
                     [
                         # dbc.Col(html.Img(src="/assets/virus.png", height="30px")),
-                        dbc.Col(dbc.NavbarBrand("COVID-19 DASH", className="ml-2")),
+                        dbc.Col(dbc.NavbarBrand("Index Zero")),
                     ],
                     align="center",
-                    no_gutters=True,
                 ),
                 href="/home",
             ),
@@ -45,7 +44,7 @@ navbar = dbc.Navbar(
     ),
     color="dark",
     dark=True,
-    className="mb-4",
+    # className="mb-4",
 )
 
 def toggle_navbar_collapse(n, is_open):

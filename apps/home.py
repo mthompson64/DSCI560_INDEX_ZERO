@@ -1,12 +1,14 @@
 import dash
-import dash_core_components as dcc
-import dash_html_components as html
+# import dash_core_components as dcc
+# import dash_html_components as html
+from dash import dcc, html
 from dash.dependencies import Input, Output
 import dash_bootstrap_components as dbc
 
 import plotly.graph_objects as go
 # import plotly.express as px
 import pandas as pd
+from app import app
 
 
 ### TO RUN:
@@ -14,18 +16,18 @@ import pandas as pd
 ### python app.py
 
 # Add external stylesheet (change from BOOTSTRAP if you don't like it)
-app = dash.Dash(name='index_zero', external_stylesheets=[dbc.themes.BOOTSTRAP])
+# app = dash.Dash(name='index_zero', external_stylesheets=[dbc.themes.BOOTSTRAP])
 
 #df = px.data.stocks()
 data_df = pd.read_csv('data/agg_stats.csv')
 data_df = data_df.sort_values(by=['median_rent'])
 
 
-app.layout = html.Div([
+layout = html.Div([
     # Header container
     dbc.Container([
         dbc.Row([
-            dbc.Col(html.H1('Index Zero - Predicting House Prices'))
+            dbc.Col(html.H1('Predicting House Prices'))
         ]),
         dbc.Row([
             dbc.Col(html.Div('Cameron Yap, Emily Christiansen, Madeleine Thompson, and Stefan Lin'))
