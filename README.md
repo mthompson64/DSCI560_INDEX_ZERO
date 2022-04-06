@@ -1,6 +1,8 @@
-# DSCI560_INDEX_ZERO
+# INDEX ZERO
+### Team Members:
+Cameron Yap, Emily Christiansen, Madeleine Thompson, Stefan Lin
 
 ### To Run App:
 ```cd <this_directory>```
-<br>
+
 ```python app.py```
