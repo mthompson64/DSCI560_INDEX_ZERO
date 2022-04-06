@@ -1,11 +1,13 @@
 from dash import dcc, html
 from dash.dependencies import Input, Output
 import dash_bootstrap_components as dbc
+import dash_table
 
 import plotly.graph_objects as go
 import pandas as pd
 from app import app
 
+# Read in data somewhere else (getting some warnings on this)
 data_df = pd.read_csv('data/agg_stats.csv')
 data_df = data_df.sort_values(by=['median_rent'])
 
@@ -38,7 +40,7 @@ layout = html.Div([
     ])
     
     
-@app.callback(Output(component_id='bar_plot', component_property= 'figure'),
+@app.callback(Output(component_id='scatter_plot', component_property= 'figure'),
               [Input(component_id='dropdown', component_property= 'value')])
 def graph_update(dropdown_value):
     fig = go.Figure([go.Scatter(x = data_df['median_rent'], y = data_df['{}'.format(dropdown_value)],\
