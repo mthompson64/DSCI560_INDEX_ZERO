@@ -8,22 +8,24 @@ import pandas as pd
 import geopandas as gpd
 from app import app
 
-# Read in data somewhere else (getting some warnings on this)
+### Read in data ###
 data_df = pd.read_csv('data/agg_stats.csv')
 census_data = gpd.read_file('data/census_tracts_2010.geojson')
 
-# Merge data_df and census_data
+# Merge data_df (NOT predicted data) and census_data
 data_df['geoid10'] = data_df['geoid2'].apply(lambda x: '0' + str(x))
 geo_df = census_data.merge(data_df, on='geoid10').set_index('geoid')
 
 # Save file
 geo_df.to_file('data/agg_stats.geojson', driver="GeoJSON")
-
 data_df = data_df.sort_values(by=['median_rent'])
 
-# Read in models here
+### Read in models here ###
 
-# Read in figures here
+### Read in figures here ###
+# Want to make this part interactive with the proper Dash calls
+# Want to format the hover text
+# https://plotly.com/python/mapbox-county-choropleth/
 choropleth = px.choropleth_mapbox(
     geo_df,
     geojson = geo_df.geometry,

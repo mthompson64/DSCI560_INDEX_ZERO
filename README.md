@@ -19,6 +19,7 @@ pip install dash
 pip install dash_bootstrap_components
 pip install plotly
 pip install pandas
+pip install geopandas
 ```
 
 ### Repo Structure
@@ -53,5 +54,6 @@ pip install pandas
     - [github.com/meredithwan/covid-dash-app](https://github.com/meredithwan/covid-dash-app)
 - [Mapbox](https://docs.mapbox.com/)
     - [Mapbox Map layers in Plotly Dash](https://plotly.com/python/mapbox-layers/)
-    - [Chloropleth](https://docs.mapbox.com/help/tutorials/choropleth-studio-gl-pt-1/)
-    - [plotly.express.chloropleth_mapbpox](https://plotly.github.io/plotly.py-docs/generated/plotly.express.choropleth_mapbox.html)
+    - [Choropleth](https://docs.mapbox.com/help/tutorials/choropleth-studio-gl-pt-1/)
+    - [plotly.express.choropleth_mapbpox](https://plotly.github.io/plotly.py-docs/generated/plotly.express.choropleth_mapbox.html)
+    - [Mapbox County Choropleth Example](https://plotly.com/python/mapbox-county-choropleth/)
