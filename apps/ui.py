@@ -5,20 +5,36 @@ import dash_bootstrap_components as dbc
 import plotly.graph_objects as go
 import plotly.express as px
 import pandas as pd
+import geopandas as gpd
 from app import app
 
 # Read in data somewhere else (getting some warnings on this)
 data_df = pd.read_csv('data/agg_stats.csv')
+census_data = gpd.read_file('data/census_tracts_2010.geojson')
+
+# Merge data_df and census_data
+data_df['geoid10'] = data_df['geoid2'].apply(lambda x: '0' + str(x))
+geo_df = census_data.merge(data_df, on='geoid10').set_index('geoid')
+
+# Save file
+geo_df.to_file('data/agg_stats.geojson', driver="GeoJSON")
+
 data_df = data_df.sort_values(by=['median_rent'])
-us_cities = pd.read_csv("https://raw.githubusercontent.com/plotly/datasets/master/us-cities-top-1k.csv")
 
 # Read in models here
 
 # Read in figures here
-fig = px.scatter_mapbox(us_cities, lat="lat", lon="lon", hover_name="City", hover_data=["State", "Population"],
-                        color_discrete_sequence=["fuchsia"], zoom=3, height=300)
-fig.update_layout(mapbox_style="open-street-map")
-fig.update_layout(margin={"r":0,"t":0,"l":0,"b":0})
+choropleth = px.choropleth_mapbox(
+    geo_df,
+    geojson = geo_df.geometry,
+    locations = geo_df.index,
+    color = geo_df.median_rent,
+    range_color=(0, max(data_df.median_rent)),
+    zoom=8.5, center = {"lat": 34.0522, "lon": -118.2437},
+    opacity=0.5
+)
+choropleth.update_layout(margin={"r":0,"t":0,"l":0,"b":0},
+    mapbox_accesstoken = 'pk.eyJ1IjoibXRob21wc29uNjQiLCJhIjoiY2t2MDBubjN1N2hxdTJwbW4ydmpwZjJrOSJ9.9vnWqmcjY-SJjCX8PneymQ')
 
 layout = html.Div([
     # Header container
@@ -77,23 +93,6 @@ layout = html.Div([
             value=[2000, 3000]),
 
         html.Br(),
-        dcc.Graph(figure=fig)
+        dcc.Graph(figure=choropleth)
     ])
 ])
-
-# layout = html.Div([
-#     # Header container
-#     dbc.Container([
-#         dbc.Row([
-#             dbc.Col(html.H1('Predicting House Prices'))
-#         ]),
-#         dbc.Row([
-#             dbc.Col(html.Div('Cameron Yap, Emily Christiansen, Madeleine Thompson, and Stefan Lin'))
-#         ]),
-#     ]),
-
-#     dbc.Container([
-#             dcc.Dropdown(['New York City', 'Montréal', 'San Francisco'], 'Montréal')
-
-#     ])
-# ])
