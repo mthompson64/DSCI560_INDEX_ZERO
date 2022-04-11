@@ -51,3 +51,7 @@ pip install pandas
 - [Beginner’s Guide to Building a Multi-Page App using Dash, Plotly and Bootstrap (Towards Data Science)](https://towardsdatascience.com/beginners-guide-to-building-a-multi-page-dashboard-using-dash-5d06dbfc7599)
 - Example Dash App Github Repository
     - [github.com/meredithwan/covid-dash-app](https://github.com/meredithwan/covid-dash-app)
+- [Mapbox](https://docs.mapbox.com/)
+    - [Mapbox Map layers in Plotly Dash](https://plotly.com/python/mapbox-layers/)
+    - [Chloropleth](https://docs.mapbox.com/help/tutorials/choropleth-studio-gl-pt-1/)
+    - [plotly.express.chloropleth_mapbpox](https://plotly.github.io/plotly.py-docs/generated/plotly.express.choropleth_mapbox.html)
