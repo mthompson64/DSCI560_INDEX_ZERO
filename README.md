@@ -21,6 +21,7 @@ pip install plotly
 pip install pandas
 pip install geopandas
 ```
+You will also need your own mapbox token stored in a file called `.mapbox_token`.
 
 ### Repo Structure
 ```
