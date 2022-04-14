@@ -51,7 +51,7 @@ layout = html.Div([
     dbc.Container([
         html.Br(),
         html.Label('Zip Code'),
-        dcc.Dropdown(id='zip_code', options=zip_list, value='All'),
+        dcc.Dropdown(options=zip_list, value='All', id='zip_code'),
 
         html.Br(),
         html.Label('Select Important Enviornmental Features'),
@@ -69,7 +69,7 @@ layout = html.Div([
         html.Br(),
         html.Label('Price Range'),
         dcc.RangeSlider(
-            id='price_range_slider',
+            id='price_range',
             min=0,
             max=5000,
             step=500,
@@ -86,7 +86,7 @@ layout = html.Div([
                 4500: '$4,500',
                 5000: '$5,000'
             },
-            value=[2000, 3000]),
+            value=[0, 5000]),
 
         html.Br(),
         # dcc.Graph(figure=choropleth)
@@ -97,16 +97,27 @@ layout = html.Div([
 # Choropleth graph
 @app.callback(
     Output("choropleth", "figure"), 
-    [Input("zip_code", "value")])
-def display_choropleth(zip_code):
+    Input("zip_code", "value"),
+    Input("price_range", "value"))
+def display_choropleth(zip_code, price_range):
+    def update_price(df, price):
+        lower_bound = float(price[0])
+        upper_bound = float(price[1])
+
+        filtered_df = df.loc[(df['median_rent'] >= lower_bound) & (df['median_rent'] <= upper_bound)]
+        return filtered_df
+
+    # Output the filtered dataframe based on geo_df
+    filtered_df = update_price(geo_df, price_range)
     if zip_code == 'All':
-        choropleth_df = geo_df
+        choropleth_df = filtered_df
     else:
         list_geoids = zip_data.loc[zip_data['ZIP'] == zip_code, 'geoid'].tolist()
         # print(list_geoids)
-        choropleth_df = geo_df.loc[geo_df['geoid2'].isin(list_geoids)]
+        choropleth_df = filtered_df.loc[filtered_df['geoid2'].isin(list_geoids)]
 
     # Calls zip code here, want to do something with updating data based on zip code
+    # Update this so that it doesn't reset the zoom every time you update something
     fig = px.choropleth_mapbox(
         choropleth_df,
         geojson = choropleth_df.geometry,
@@ -114,7 +125,9 @@ def display_choropleth(zip_code):
         color = choropleth_df.median_rent,
         range_color=(0, max(geo_df.median_rent)),
         zoom=8.5, center = {"lat": 34.0522, "lon": -118.2437},
-        opacity=0.5
+        opacity=0.5, labels={'median_rent': 'Median Rent'},
+        # hover_name = choropleth_df.geoid2,
+        hover_data = [choropleth_df.median_rent, choropleth_df.TotalPopulation, choropleth_df.well_count]
     )
 
     # Add mapbox access token
