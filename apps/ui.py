@@ -2,12 +2,13 @@ from dash import dcc, html
 from dash.dependencies import Input, Output
 import dash_bootstrap_components as dbc
 
-import plotly.graph_objects as go
+# import plotly.graph_objects as go
 import plotly.express as px
 import pandas as pd
 import geopandas as gpd
 from app import app
 
+# Mapbox Token
 token = open(".mapbox_token").read()
 
 ### Read in data ###
@@ -27,7 +28,7 @@ data_df['geoid10'] = data_df['geoid2'].apply(lambda x: '0' + str(x))
 geo_df = census_data.merge(data_df, on='geoid10').set_index('geoid')
 
 # Save file
-geo_df.to_file('data/agg_stats.geojson', driver="GeoJSON")
+# geo_df.to_file('data/agg_stats.geojson', driver="GeoJSON")
 data_df = data_df.sort_values(by=['median_rent'])
 
 ### Read in models here ###
@@ -35,7 +36,6 @@ data_df = data_df.sort_values(by=['median_rent'])
 ### Read in figures here ###
 # Want to make this part interactive with the proper Dash calls
 # Want to format the hover text
-# https://plotly.com/python/mapbox-county-choropleth/
 
 layout = html.Div([
     # Header container
@@ -51,7 +51,7 @@ layout = html.Div([
     dbc.Container([
         html.Br(),
         html.Label('Zip Code'),
-        dcc.Dropdown(options=zip_list, value='All', id='zip_code'),
+        dcc.Dropdown(options=zip_list, value='All', id='zip_code'), # Input - value
 
         html.Br(),
         html.Label('Select Important Enviornmental Features'),
@@ -86,11 +86,10 @@ layout = html.Div([
                 4500: '$4,500',
                 5000: '$5,000'
             },
-            value=[0, 5000]),
+            value=[0, 5000]), # Input - value
 
         html.Br(),
-        # dcc.Graph(figure=choropleth)
-        dcc.Graph(id='choropleth')
+        dcc.Graph(id='choropleth') # Output - figure
     ])
 ])
 
@@ -104,11 +103,14 @@ def display_choropleth(zip_code, price_range):
         lower_bound = float(price[0])
         upper_bound = float(price[1])
 
+        # Filter the dataframe on the rent being in the price range specified
         filtered_df = df.loc[(df['median_rent'] >= lower_bound) & (df['median_rent'] <= upper_bound)]
         return filtered_df
 
     # Output the filtered dataframe based on geo_df
     filtered_df = update_price(geo_df, price_range)
+
+    # Output the dataframe for the choropleth map based on the zip code input
     if zip_code == 'All':
         choropleth_df = filtered_df
     else:
