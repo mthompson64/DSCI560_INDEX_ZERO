@@ -3,12 +3,13 @@ from dash.dependencies import Input, Output, State
 import dash_bootstrap_components as dbc
 
 from app import app
-from apps import ui, home
+from apps import ui, home, about
 
 dropdown = dbc.DropdownMenu(
     children=[
-        dbc.DropdownMenuItem("Home", href="/home"),
+        dbc.DropdownMenuItem("Data Exploration", href="/home"),
         dbc.DropdownMenuItem("User Interface", href="/ui"),
+        dbc.DropdownMenuItem("About Us", href="/about"),
     ],
     nav = True,
     in_navbar = True,
@@ -69,6 +70,8 @@ app.layout = html.Div([
 def display_page(pathname):
     if pathname == '/ui':
         return ui.layout
+    elif pathname == '/about':
+        return about.layout
     else:
         return home.layout
 

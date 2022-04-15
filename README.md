@@ -1,4 +1,5 @@
 # INDEX ZERO
+## Predictive Analysis of the Rent Level in Los Angeles with Environmental and Social Features
 ### Team Members:
 Cameron Yap, Emily Christiansen, Madeleine Thompson, Stefan Lin
 
