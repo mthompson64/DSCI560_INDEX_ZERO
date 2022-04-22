@@ -8,6 +8,13 @@ import pandas as pd
 import geopandas as gpd
 from app import app
 
+import sys
+import os
+sys.path.append(os.path.join(os.getcwd(), 'models/'))
+# from ANN import load_model
+
+# load_model()
+
 # Mapbox Token
 token = open(".mapbox_token").read()
 
