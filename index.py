@@ -23,7 +23,7 @@ navbar = dbc.Navbar(
                 # Use row and col to control vertical alignment of logo / brand
                 dbc.Row(
                     [
-                        # dbc.Col(html.Img(src="/assets/virus.png", height="30px")),
+                        dbc.Col(html.Img(src="/assets/IO_logo_white.png", height="60px")),
                         dbc.Col(dbc.NavbarBrand("Index Zero")),
                     ],
                     align="center",
@@ -61,7 +61,7 @@ for i in [2]:
 app.layout = html.Div([
     dcc.Location(id='url', refresh=False),
     navbar,
-    html.Div(id='page-content')
+    html.Div(id='page-content', style={'padding': 10, 'flex': 1, 'margin-bottom': 10})
 ])
 
 # Index Callbacks

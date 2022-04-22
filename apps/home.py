@@ -37,7 +37,20 @@ layout = html.Div([
     # Content container
     dbc.Container([
         html.Br(),
+        dbc.Row([
+            dbc.Col([
+                html.H3('Data Exploration')
+            ]),
+        ]),
+        dbc.Row([
+            dbc.Col([
+                html.Div('Select a feature to visualize the data:')
+            ])
+        ]),
+
         # Dropdown menu
+        # Add more features to visualize
+        html.Br(),
         dcc.Dropdown(id = 'dropdown',
             options = [
                 {'label':'Ozone', 'value':'Ozone' },
@@ -50,6 +63,10 @@ layout = html.Div([
             value = 'well_count'),
         
         # Graph (change, add more graphs here)
+        # dbc.Row([
+        #     dbc.Col(dcc.Graph(id = 'data_exploration_histogram')),
+        #     dbc.Col(dcc.Graph(id = 'data_exploration_choropleth'))
+        # ])
         dcc.Graph(id = 'data_exploration_histogram'),
         dcc.Graph(id = 'data_exploration_choropleth')
         ])
