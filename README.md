@@ -28,6 +28,7 @@ You will also need your own mapbox token stored in a file called `.mapbox_token`
 ```
 - apps
     |-- __init__.py
+    |-- about.py
     |-- home.py
     |-- ui.py
 - assets
@@ -35,6 +36,9 @@ You will also need your own mapbox token stored in a file called `.mapbox_token`
 - data
     |-- agg_stats.csv
     |-- cleaned_data.csv
+- models
+    |-- ANN.py
+    |--
 - .gitignore
 - app_copy.py (ignore this file, this is a copy of the original one-page app)
 - app.py
@@ -59,3 +63,6 @@ You will also need your own mapbox token stored in a file called `.mapbox_token`
     - [Choropleth](https://docs.mapbox.com/help/tutorials/choropleth-studio-gl-pt-1/)
     - [plotly.express.choropleth_mapbpox](https://plotly.github.io/plotly.py-docs/generated/plotly.express.choropleth_mapbox.html)
     - [Mapbox County Choropleth Example](https://plotly.com/python/mapbox-county-choropleth/)
+- [Machine learning simulation tool with Dash](https://towardsdatascience.com/build-a-machine-learning-simulation-tool-with-dash-b3f6fd512ad6)
+- [Python Dashboard using Dash. From Backend to Frontend](https://thongekchakrit.github.io/projects/python-dashboard-building)
+- [Saving a Keras Deep Learning Model](https://machinelearningmastery.com/save-load-keras-deep-learning-models/)

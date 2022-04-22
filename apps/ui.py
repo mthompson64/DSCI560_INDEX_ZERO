@@ -66,6 +66,7 @@ layout = html.Div([
         inline=False, id='checklist'
         ),
 
+        # Don't make this part of the input, change so we get the price out when giving all of these inputs
         html.Br(),
         html.Label('Price Range'),
         dcc.RangeSlider(
