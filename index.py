@@ -9,7 +9,7 @@ dropdown = dbc.DropdownMenu(
     children=[
         dbc.DropdownMenuItem("Data Exploration", href="/home"),
         dbc.DropdownMenuItem("User Interface", href="/ui"),
-        dbc.DropdownMenuItem("About Us", href="/about"),
+        dbc.DropdownMenuItem("About", href="/about"),
     ],
     nav = True,
     in_navbar = True,
