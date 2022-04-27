@@ -1,5 +1,5 @@
 from dash import dcc, html
-from dash.dependencies import Input, Output
+from dash.dependencies import Input, Output, State
 import dash_bootstrap_components as dbc
 
 # import plotly.graph_objects as go
@@ -13,7 +13,9 @@ import os
 sys.path.append(os.path.join(os.getcwd(), 'models/'))
 # from ANN import load_model
 
-# load_model()
+# Load output from model
+# Load base case: no environmental features are changed, get predicted price per zip code
+base_pred_price = pd.read_csv('data/avg_zip_pred_price.csv', names=['ZIP', 'pred_price'], header=0)
 
 # Mapbox Token
 token = open(".mapbox_token").read()
@@ -58,43 +60,38 @@ layout = html.Div([
     dbc.Container([
         html.Br(),
         html.Label('Zip Code'),
-        dcc.Dropdown(options=zip_list, value='All', id='zip_code'), # Input - value
+        dcc.Dropdown(options=zip_list, value='All', clearable=False, id='zip_code'), # Input - value
 
+        # Features:
+        # Ozone
+        # Oil wells
+        # PM25
+        # Total population
+        # Drinking water
+        # Traffic
+        # Lead
+        # Hazardous waste
         html.Br(),
         html.Label('Select Important Enviornmental Features'),
-        dcc.Dropdown(['CES Score', 'Ozone', 'Diesel Emissions', "Drinking Water Contaminants", "Lead", "Pesticides", "Airborne Toxic Release", "Traffic", "Cleanup Sites", "Groundwater Threats", "Hazardous Waste", "Impaired Water Bodies", "Solid Waste"],
-                     multi=True, id='dropdown'),
+        dcc.Dropdown(
+            options = [
+                {'label':'Ozone', 'value':'Ozone' },
+                {'label': '# Oil Wells', 'value':'well_count'},
+                {'label': 'Pollution (PM25 value)', 'value':'PM25'},
+                # {'label': 'Total Population', 'value': 'TotalPopulation'},
+                {'label': 'Drinking Water Quality', 'value': 'DrinkingWater'},
+                {'label': 'Traffic', 'value': 'Traffic'},
+                {'label': 'Lead', 'value': 'Lead'},
+                {'label': 'Hazardous Waste', 'value': 'HazWaste'}
+            ], multi=True, clearable=True, id='environment_features'
+        ), 
 
         html.Br(),
-        html.Label('Individual Health and Wellbeing Factors'),
-        dcc.Checklist(
-        options = ['Asthma', 'Low Birth Weight', 'Cardiovascular Disease', "Education", "Linguistic Isolation", "Poverty", "Unemployment", "Housing Burden"],
-        value = ['Asthma'],
-        inline=False, id='checklist'
-        ),
-
-        # Don't make this part of the input, change so we get the price out when giving all of these inputs
-        html.Br(),
-        html.Label('Price Range'),
-        dcc.RangeSlider(
-            id='price_range',
-            min=0,
-            max=5000,
-            step=500,
-            marks={
-                0: '$0',
-                500: '$500',
-                1000: '$1,000',
-                1500: '$1,500',
-                2000: '$2,000',
-                2500: '$2,500',
-                3000: '$3,000',
-                3500: '$3,500',
-                4000: '$4,000',
-                4500: '$4,500',
-                5000: '$5,000'
-            },
-            value=[0, 5000]), # Input - value
+        # Add button to calculate price
+        dbc.Container([
+            dbc.Button("Calculate Price", id="calculate_price", color="primary", className="me-1"),
+            html.Span(id="price_output")
+        ]),
 
         html.Br(),
         dcc.Graph(id='choropleth') # Output - figure
@@ -104,27 +101,15 @@ layout = html.Div([
 # Choropleth graph
 @app.callback(
     Output("choropleth", "figure"), 
-    Input("zip_code", "value"),
-    Input("price_range", "value"))
-def display_choropleth(zip_code, price_range):
-    def update_price(df, price):
-        lower_bound = float(price[0])
-        upper_bound = float(price[1])
-
-        # Filter the dataframe on the rent being in the price range specified
-        filtered_df = df.loc[(df['median_rent'] >= lower_bound) & (df['median_rent'] <= upper_bound)]
-        return filtered_df
-
-    # Output the filtered dataframe based on geo_df
-    filtered_df = update_price(geo_df, price_range)
-
+    Input("zip_code", "value"))
+def display_choropleth(zip_code):
     # Output the dataframe for the choropleth map based on the zip code input
     if zip_code == 'All':
-        choropleth_df = filtered_df
+        choropleth_df = geo_df
     else:
         list_geoids = zip_data.loc[zip_data['ZIP'] == zip_code, 'geoid'].tolist()
         # print(list_geoids)
-        choropleth_df = filtered_df.loc[filtered_df['geoid2'].isin(list_geoids)]
+        choropleth_df = geo_df.loc[geo_df['geoid2'].isin(list_geoids)]
 
     # Calls zip code here, want to do something with updating data based on zip code
     # Update this so that it doesn't reset the zoom every time you update something
@@ -145,3 +130,34 @@ def display_choropleth(zip_code, price_range):
         mapbox_accesstoken = token)
 
     return fig
+
+# Calculate price callback
+# Want the button to read in the user input for zip code and features when clicked
+@app.callback(
+    Output("price_output", "children"),
+    Input("calculate_price", "n_clicks"),
+    State("zip_code", "value"),
+    State("environment_features", "value")
+)
+def on_button_click(n, zip_code, environment_features):
+    # Check environmental features input
+    if environment_features == None or environment_features == []:
+        # Base case, no environmental features selected
+        # Pull data from base_pred_price dataframe
+
+        # Check zip code input
+        if zip_code == 'All':
+            output_df = base_pred_price
+        else:
+            output_df = base_pred_price.loc[base_pred_price['ZIP'] == int(zip_code)]
+    else:
+        # Case where environmental features are selected
+        print("Other inputs selected")
+        output_df = base_pred_price
+
+    price = output_df['pred_price'].mean()
+    # Update on button click
+    if n is None:
+        return None
+    else:
+        return f"Predicted price: ${round(price, 2)}"

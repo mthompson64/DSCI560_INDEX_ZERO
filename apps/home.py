@@ -49,16 +49,26 @@ layout = html.Div([
         ]),
 
         # Dropdown menu
-        # Add more features to visualize
+        # Features:
+        # Ozone
+        # Oil wells
+        # PM25
+        # Total population
+        # Drinking water
+        # Traffic
+        # Lead
+        # Hazardous waste
         html.Br(),
         dcc.Dropdown(id = 'dropdown',
             options = [
-                {'label':'Ozone', 'value':'Ozone' },
+                {'label': 'Ozone', 'value':'Ozone' },
                 {'label': '# Oil Wells', 'value':'well_count'},
                 {'label': 'Pollution (PM25 value)', 'value':'PM25'},
                 {'label': 'Total Population', 'value': 'TotalPopulation'},
                 {'label': 'Drinking Water Quality', 'value': 'DrinkingWater'},
-                {'label': 'Traffic', 'value': 'Traffic'}
+                {'label': 'Traffic', 'value': 'Traffic'},
+                {'label': 'Lead', 'value': 'Lead'},
+                {'label': 'Hazardous Waste', 'value': 'HazWaste'}
                 ],
             value = 'well_count'),
         
@@ -88,6 +98,8 @@ def graph_update(dropdown_value):
         label = 'Total Population'
     elif dropdown_value == 'DrinkingWater':
         label = 'Drinking Water Quality'
+    elif dropdown_value =='HazWaste':
+        label = 'Hazardous Waste'
     else:
         label = str(dropdown_value)
 

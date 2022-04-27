@@ -1,0 +1,4 @@
+ZIP,geoid,Ozone,well_count,PM25,TotalPopulation,DrinkingWater,Traffic,Lead,HazWaste,price
+90001,6037239202,1,0,0,0,0,0,0,0,0,100
+90001,6037239202,1,1,0,0,0,0,0,0,0,1000
+90001,6037239202,1,1,1,0,0,0,0,0,0,2000
