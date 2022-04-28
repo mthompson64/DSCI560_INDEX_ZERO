@@ -13,7 +13,7 @@ cameron_yap = dbc.Card([
 ])
 
 emily_christiansen = dbc.Card([
-    dbc.CardImg(src='assets/squidward.jpeg'),
+    dbc.CardImg(src='assets/emily_christiansen.jpeg'),
     dbc.CardBody([
         html.H4(
             html.A('Emily Christiansen', href='https://www.linkedin.com/in/emily-christiansen-65a644117/'),
@@ -54,23 +54,6 @@ layout = html.Div([
     # Content container
     dbc.Container([
         dbc.Row([
-            dbc.Col(html.H3('About us'))
-        ]),
-        dbc.Row([
-            dbc.Col(html.Div("""
-            Index Zero is a data analytics consulting team at the University of Southern California. Our members are ​​Cameron Yap, Emily Christiansen, Madeleine Thompson, and Stefan Lin. We are experts in technical data analytics and want to help you, residential renters, to find your next home in Los Angeles County.
-            """))
-        ]),
-        html.Br(),
-        dbc.Row([
-            dbc.Col(cameron_yap),
-            dbc.Col(emily_christiansen),
-            dbc.Col(madeleine_thompson),
-            dbc.Col(stefan_lin),
-        ]),
-
-        html.Br(),
-        dbc.Row([
             dbc.Col(html.H3('About our project'))
         ]),
         dbc.Row([
@@ -88,5 +71,22 @@ layout = html.Div([
             For all your rental needs, we have incorporated socio-environmental factors into our prediction model. What are your main concerns when renting a home? Do you worry about the surrounding socio-environmental issues such as safety, education, oil wells, air quality, and water pollution that can impact you and your partner, children and beloved furry friends? Our tool takes in your specific needs and concerns and helps you find the best locations and predicted price for your next rented home!
             """))
         ]),
+
+        html.Br(),
+        dbc.Row([
+            dbc.Col(html.H3('About us'))
+        ]),
+        dbc.Row([
+            dbc.Col(html.Div("""
+            Index Zero is a data analytics consulting team at the University of Southern California. Our members are ​​Cameron Yap, Emily Christiansen, Madeleine Thompson, and Stefan Lin. We are experts in technical data analytics and want to help you, residential renters, to find your next home in Los Angeles County.
+            """))
+        ]),
+        html.Br(),
+        dbc.Row([
+            dbc.Col(cameron_yap),
+            dbc.Col(emily_christiansen),
+            dbc.Col(madeleine_thompson),
+            dbc.Col(stefan_lin),
+        ])
     ])
 ])

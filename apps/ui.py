@@ -182,6 +182,7 @@ def on_button_click(n, zip_code, environment_features):
 
     # Calculate the mean price (it should just be one value in the output_df except in the case of all zip codes being selected)
     price = output_df['pred_price'].mean()
+    
     # Update on button click
     if n is None:
         return None
