@@ -72,6 +72,8 @@ layout = html.Div([
                 ],
             value = 'well_count'),
         
+        html.Div(id="feature_explanation", style={'font-style': 'italic'}),
+        
         # Graph (change, add more graphs here)
         # dbc.Row([
         #     dbc.Col(dcc.Graph(id = 'data_exploration_histogram')),
@@ -82,9 +84,10 @@ layout = html.Div([
         ])
     ])
     
-    
+
+# Histogram callback
 @app.callback(Output(component_id='data_exploration_histogram', component_property= 'figure'),
-              [Input(component_id='dropdown', component_property= 'value')])
+              Input(component_id='dropdown', component_property= 'value'))
 def graph_update(dropdown_value):
     log_y = False
 
@@ -122,6 +125,8 @@ def display_choropleth(dropdown):
         label = 'Total Population'
     elif dropdown == 'DrinkingWater':
         label = 'Drinking Water Quality'
+    elif dropdown =='HazWaste':
+        label = 'Hazardous Waste'
     else:
         label = str(dropdown)
 
@@ -145,3 +150,37 @@ def display_choropleth(dropdown):
         mapbox_accesstoken = token)
 
     return fig
+
+@app.callback(
+    Output("feature_explanation", "children"), 
+    Input("dropdown", "value"))
+def add_explanation(dropdown):
+    # Want to add a feature explanation from the data dictionary for each selected feature
+
+    # Possible features:
+        # Ozone
+        # Oil wells
+        # PM25
+        # Total population
+        # Drinking water
+        # Traffic
+        # Lead
+        # Hazardous waste
+    if dropdown == 'Ozone':
+        return "Ozone explanation"
+    elif dropdown == 'well_count':
+        return "Well Count explanation"
+    elif dropdown == 'PM25':
+        return "PM 2.5 explanation"
+    elif dropdown == 'TotalPopulation':
+        return "Total population explanation"
+    elif dropdown == 'DrinkingWater':
+        return "Drinking water explanation"
+    elif dropdown == 'Traffic':
+        return "Traffic explanation"
+    elif dropdown == 'Lead':
+        return "Lead explanation"
+    elif dropdown == 'HazWaste':
+        return "Hazardous waste explanation"
+    else:
+        return "None selected!"

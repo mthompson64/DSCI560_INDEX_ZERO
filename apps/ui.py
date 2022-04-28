@@ -5,6 +5,7 @@ import dash_bootstrap_components as dbc
 # import plotly.graph_objects as go
 import plotly.express as px
 import pandas as pd
+import numpy as np
 import geopandas as gpd
 from app import app
 
@@ -16,6 +17,9 @@ sys.path.append(os.path.join(os.getcwd(), 'models/'))
 # Load output from model
 # Load base case: no environmental features are changed, get predicted price per zip code
 base_pred_price = pd.read_csv('data/avg_zip_pred_price.csv', names=['ZIP', 'pred_price'], header=0)
+predictions_df = pd.read_csv('data/90001.csv')
+predictions_df = predictions_df.rename({'PredictedPrice': 'pred_price'}, axis=1)
+# print(test_df)
 
 # Mapbox Token
 token = open(".mapbox_token").read()
@@ -121,8 +125,10 @@ def display_choropleth(zip_code):
         range_color=(0, max(geo_df.median_rent)),
         zoom=8.5, center = {"lat": 34.0522, "lon": -118.2437},
         opacity=0.5, labels={'median_rent': 'Median Rent'},
-        # hover_name = choropleth_df.geoid2,
-        hover_data = [choropleth_df.median_rent, choropleth_df.TotalPopulation, choropleth_df.well_count]
+
+        # Hover data: Median rent, Total population, oil well count, Asthma, low birth, cardio, education, poverty, unemployment
+        # Format this to look better
+        hover_data = [choropleth_df.median_rent, choropleth_df.TotalPopulation, choropleth_df.well_count, choropleth_df.Asthma, choropleth_df.LowBirthWeight, choropleth_df.CardiovascularDisease, choropleth_df.Education, choropleth_df.Poverty, choropleth_df.Unemployment, choropleth_df.HousingBurden]
     )
 
     # Add mapbox access token
@@ -140,6 +146,7 @@ def display_choropleth(zip_code):
     State("environment_features", "value")
 )
 def on_button_click(n, zip_code, environment_features):
+    total_features = ['DrinkingWater','HazWaste','Lead','Ozone','PM25','Traffic','well_count']
     # Check environmental features input
     if environment_features == None or environment_features == []:
         # Base case, no environmental features selected
@@ -152,9 +159,28 @@ def on_button_click(n, zip_code, environment_features):
             output_df = base_pred_price.loc[base_pred_price['ZIP'] == int(zip_code)]
     else:
         # Case where environmental features are selected
-        print("Other inputs selected")
         output_df = base_pred_price
 
+        # Mask the dataframe based on the environment features selected
+        masks = []
+        for feature in total_features:
+            if feature in environment_features:
+                # Create mask
+                m = predictions_df[f"{feature}"] == 1
+            else:
+                m = predictions_df[f"{feature}"] == 0
+            masks.append(m)
+        
+        # Apply mask to predictions_df, save as masked_df
+        masked_df = predictions_df[np.logical_and.reduce(masks)]
+
+        # Check zip code input
+        if zip_code == 'All':
+            output_df = masked_df
+        else:
+            output_df = masked_df.loc[masked_df['ZIP'] == int(zip_code)]
+
+    # Calculate the mean price (it should just be one value in the output_df except in the case of all zip codes being selected)
     price = output_df['pred_price'].mean()
     # Update on button click
     if n is None:
