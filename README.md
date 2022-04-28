@@ -65,3 +65,4 @@ You will also need your own mapbox token stored in a file called `.mapbox_token`
 - [Machine learning simulation tool with Dash](https://towardsdatascience.com/build-a-machine-learning-simulation-tool-with-dash-b3f6fd512ad6)
 - [Python Dashboard using Dash. From Backend to Frontend](https://thongekchakrit.github.io/projects/python-dashboard-building)
 - [Saving a Keras Deep Learning Model](https://machinelearningmastery.com/save-load-keras-deep-learning-models/)
+- [Deploying Dash App on Heroku](https://towardsdatascience.com/deploying-your-dash-app-to-heroku-the-magical-guide-39bd6a0c586c)
