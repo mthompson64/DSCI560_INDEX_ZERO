@@ -29,7 +29,7 @@ You will also need your own mapbox token stored in a file called `.mapbox_token`
 - apps
     |-- __init__.py
     |-- about.py
-    |-- home.py
+    |-- data_exploration.py
     |-- ui.py
 - assets
     |-- 
@@ -38,7 +38,6 @@ You will also need your own mapbox token stored in a file called `.mapbox_token`
     |-- cleaned_data.csv
 - models
     |-- ANN.py
-    |--
 - .gitignore
 - app_copy.py (ignore this file, this is a copy of the original one-page app)
 - app.py

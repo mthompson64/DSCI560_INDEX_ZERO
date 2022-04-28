@@ -70,7 +70,7 @@ layout = html.Div([
                 {'label': 'Lead', 'value': 'Lead'},
                 {'label': 'Hazardous Waste', 'value': 'HazWaste'}
                 ],
-            value = 'well_count'),
+            value = 'PM25'),
         
         html.Div(id="feature_explanation", style={'font-style': 'italic'}),
         
@@ -79,8 +79,11 @@ layout = html.Div([
         #     dbc.Col(dcc.Graph(id = 'data_exploration_histogram')),
         #     dbc.Col(dcc.Graph(id = 'data_exploration_choropleth'))
         # ])
-        dcc.Graph(id = 'data_exploration_histogram'),
-        dcc.Graph(id = 'data_exploration_choropleth')
+        html.Br(),
+        html.H4('Choropleth Map'),
+        dcc.Graph(id = 'data_exploration_choropleth'),
+        html.Br(),
+        dcc.Graph(id = 'data_exploration_histogram')
         ])
     ])
     
@@ -141,6 +144,8 @@ def display_choropleth(dropdown):
         zoom=8.5, center = {"lat": 34.0522, "lon": -118.2437},
         opacity=0.5,
         labels={'{}'.format(dropdown): label},
+        color_continuous_scale='viridis',
+        mapbox_style='light'
         # hover_name = choropleth_df.geoid2,
         # hover_data = [choropleth_df.median_rent, choropleth_df.TotalPopulation, choropleth_df.well_count]
     )

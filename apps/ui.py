@@ -11,7 +11,7 @@ from app import app
 
 import sys
 import os
-sys.path.append(os.path.join(os.getcwd(), 'models/'))
+# sys.path.append(os.path.join(os.getcwd(), 'models/'))
 # from ANN import load_model
 
 # Load output from model
@@ -76,7 +76,7 @@ layout = html.Div([
         # Lead
         # Hazardous waste
         html.Br(),
-        html.Label('Select Important Enviornmental Features'),
+        html.Label('Important Environmental Features (select all that apply)'),
         dcc.Dropdown(
             options = [
                 {'label':'Ozone', 'value':'Ozone' },
@@ -94,7 +94,7 @@ layout = html.Div([
         # Add button to calculate price
         dbc.Container([
             dbc.Button("Calculate Price", id="calculate_price", color="primary", className="me-1"),
-            html.Span(id="price_output")
+            html.Span(id="price_output", style={'font-style': 'italic'})
         ]),
 
         html.Br(),
@@ -125,6 +125,7 @@ def display_choropleth(zip_code):
         range_color=(0, max(geo_df.median_rent)),
         zoom=8.5, center = {"lat": 34.0522, "lon": -118.2437},
         opacity=0.5, labels={'median_rent': 'Median Rent'},
+        color_continuous_scale='viridis',
 
         # Hover data: Median rent, Total population, oil well count, Asthma, low birth, cardio, education, poverty, unemployment
         # Format this to look better
@@ -159,7 +160,6 @@ def on_button_click(n, zip_code, environment_features):
             output_df = base_pred_price.loc[base_pred_price['ZIP'] == int(zip_code)]
     else:
         # Case where environmental features are selected
-        # output_df = base_pred_price
 
         # Mask the dataframe based on the environment features selected
         masks = []
