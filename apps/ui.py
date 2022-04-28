@@ -17,7 +17,7 @@ sys.path.append(os.path.join(os.getcwd(), 'models/'))
 # Load output from model
 # Load base case: no environmental features are changed, get predicted price per zip code
 base_pred_price = pd.read_csv('data/avg_zip_pred_price.csv', names=['ZIP', 'pred_price'], header=0)
-predictions_df = pd.read_csv('data/90001.csv')
+predictions_df = pd.read_csv('data/all_predicted_data.csv')
 predictions_df = predictions_df.rename({'PredictedPrice': 'pred_price'}, axis=1)
 # print(test_df)
 
@@ -159,7 +159,7 @@ def on_button_click(n, zip_code, environment_features):
             output_df = base_pred_price.loc[base_pred_price['ZIP'] == int(zip_code)]
     else:
         # Case where environmental features are selected
-        output_df = base_pred_price
+        # output_df = base_pred_price
 
         # Mask the dataframe based on the environment features selected
         masks = []
