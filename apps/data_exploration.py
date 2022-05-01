@@ -172,20 +172,20 @@ def add_explanation(dropdown):
         # Lead
         # Hazardous waste
     if dropdown == 'Ozone':
-        return "Ozone explanation"
+        return "O3 concentration measured as parts per million (ppm). In 2015, the EPA established 0.070 ppm as the standard."
     elif dropdown == 'well_count':
-        return "Well Count explanation"
+        return "Count of oil well sites within the area's boundaries."
     elif dropdown == 'PM25':
-        return "PM 2.5 explanation"
+        return "Annual mean of particulate matter concentrations, measured in micrograms per cubic meter of air."
     elif dropdown == 'TotalPopulation':
-        return "Total population explanation"
+        return "Total number of individuals residing within the area's boundaries."
     elif dropdown == 'DrinkingWater':
-        return "Drinking water explanation"
+        return "Average concentrations of 14 commonly identified contaminants in region's primary drinking water supply."
     elif dropdown == 'Traffic':
-        return "Traffic explanation"
+        return "Density of vehicles on the roads, measured in vehicle-kilometers per hour per road length."
     elif dropdown == 'Lead':
-        return "Lead explanation"
+        return "Risk for lead exposure, based on children, high-poverty populations, and older housing structures being more prone to lead contamination."
     elif dropdown == 'HazWaste':
-        return "Hazardous waste explanation"
+        return "Count of hazardous waste facilities within the area's boundaries, weighted by proximity to residential areas."
     else:
         return "None selected!"

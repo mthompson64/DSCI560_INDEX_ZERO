@@ -187,4 +187,4 @@ def on_button_click(n, zip_code, environment_features):
     if n is None:
         return None
     else:
-        return f"Predicted price: ${round(price, 2)}"
+        return f"Predicted rent price: ${round(price, 2)} per month"
