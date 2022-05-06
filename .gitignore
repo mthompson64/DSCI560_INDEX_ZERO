@@ -4,3 +4,4 @@
 .mapbox_token
 
 __pycache__/
+data/original_data/
